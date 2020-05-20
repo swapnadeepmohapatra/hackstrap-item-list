@@ -98,6 +98,7 @@
 	padding-right: 10px;
 	border: none;
 	background: #f4f5f9;
+	font-style: italic;
 }
 
 .main-card-head input:focus {
@@ -117,6 +118,14 @@
 	border-radius: 70px;
 	align-items: center;
 	padding-right: 10px;
+	margin-bottom: 10px;
+	font-style: italic;
+}
+
+.search-button {
+	background: transparent;
+	border: none;
+	cursor: pointer;
 }
 
 .categories-table {
@@ -125,19 +134,69 @@
 	width: 100%;
 }
 
-.categories-table tr td {
+.categories-table tr {
+	font-weight: 500;
+}
+.categories-table td {
+	padding-left: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-.categories-table tr:nth-child(odd) {
+.categories-table tr:nth-child(even) {
 	background: #edf1f2;
 }
 
-.categories-table tr:nth-child(even) {
+.categories-table tr:nth-child(odd) {
 	background: #f9f9f9;
 }
 
 .categories-table-div {
 	margin-top: 10px;
 	width: 100%;
+}
+
+@media all and (max-width: 480px) {
+	.main-card-head {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+}
+
+.add-item-div {
+	background-color: #edf1f2;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-around;
+}
+.add-item-div span {
+	flex: 1;
+	color: #348105;
+	font-weight: 500;
+}
+.add-item-div ::placeholder {
+	color: #000000;
+}
+.add-item-div input {
+	flex: 2;
+	background: #ffffff;
+	border: 0.809382px solid #10389b;
+	box-sizing: border-box;
+	border-radius: 2px;
+	padding: 2px 10px;
+	color: black;
+}
+
+.add-item-div button {
+	background-color: #edf1f2;
+	background: #10389b;
+	box-shadow: 0px 3.34545px 3.34545px rgba(0, 0, 0, 0.25);
+	border-radius: 8.36362px;
+	color: #ffffff;
+	font-weight: 500;
+	line-height: 14px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 40px;
+	margin-right: 40px;
 }
