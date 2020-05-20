@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchIcon from './assets/SearchIcon';
 import CheckIcon from './assets/CheckBoxIcon';
 import './App.css';
@@ -111,7 +111,7 @@ function App() {
 
 	const showDropdownMenu = (index) => {
 		if (displayMenu === index) {
-			setDisplayMenu(-1);
+			// setDisplayMenu(-1);
 			setConformState({ ...conformState, action: '', index: -1 });
 		} else {
 			setDisplayMenu(index);
@@ -220,7 +220,7 @@ function App() {
 														>
 															{conformState.action === 'edit' ? 'Save' : 'Conform'}
 														</button>
-														{displayMenu === index ? (
+														{displayMenu === index && conformState.action === 'move' ? (
 															<div className="menu">
 																<span>Move To</span>
 																{Object.keys(data).map((item, index) => {
