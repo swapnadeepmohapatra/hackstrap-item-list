@@ -200,3 +200,13 @@
 	margin-left: 40px;
 	margin-right: 40px;
 }
+
+@media all and (max-width: 480px) {
+	.add-item-div {
+		flex-direction: column;
+		align-items: center;
+	}
+	.add-item-div * {
+		margin-top: 10px;
+	}
+}
