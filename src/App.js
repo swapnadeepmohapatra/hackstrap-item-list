@@ -23,7 +23,8 @@ function App() {
 	const [selectedCategory, setSelectedCategory] = useState('Industries');
 	const [addItem, setAddItem] = useState('');
 	const [searchKeyword, setSearchKeyword] = useState('');
-	const [conformState, setConformState] = useState({ action: '', index: -1 });
+	const [conformState, setConformState] = useState({ action: '', editVal: '', index: -1 });
+	const [displayMenu, setDisplayMenu] = useState(-1);
 
 	const changeCategory = (item) => (event) => {
 		setSelectedCategory(item);
@@ -35,6 +36,9 @@ function App() {
 		}
 		if (item === 'searchItem') {
 			setSearchKeyword(event.target.value);
+		}
+		if (item === 'editItem') {
+			setConformState({ ...conformState, editVal: event.target.value });
 		}
 	};
 
@@ -51,19 +55,36 @@ function App() {
 		setAddItem('');
 	};
 
-	const changeValue = (item, index) => (event) => {
+	const changeValue = (item, index, editVal) => (event) => {
+		event.preventDefault();
 		console.log(item, index);
-		setConformState({ action: item, index: index });
+		if (item === 'edit') {
+			setConformState({ action: item, index: index, editVal: editVal });
+		} else {
+			setConformState({ action: item, index: index });
+		}
 	};
 
 	const doChange = (event) => {
-		const { action, index } = conformState;
+		event.preventDefault();
+		const { action, editVal, index } = conformState;
 
 		if (action === 'delete') {
 			data[selectedCategory].items.splice(index, 1);
 			setData({ ...data });
 			setConformState({ action: '', index: -1 });
 		}
+
+		if (action === 'edit') {
+			data[selectedCategory].items[index] = editVal;
+			setData({ ...data });
+			setConformState({ action: '', index: -1, editVal: '' });
+		}
+	};
+
+	const showDropdownMenu = (index) => (event) => {
+		event.preventDefault();
+		setDisplayMenu(index);
 	};
 
 	return (
@@ -121,10 +142,26 @@ function App() {
 										return (
 											<tr key={index}>
 												<td>
-													<div className="item-titles">{` ${index + 1}.  ${items}`}</div>
+													{conformState.action === 'edit' && conformState.index === index ? (
+														<form onSubmit={doChange} className="item-titles">
+															{` ${index + 1}. `}
+															<input
+																onChange={handleOnChange('editItem')}
+																type="text"
+																name=""
+																id=""
+																value={conformState.editVal}
+															/>
+														</form>
+													) : (
+														<div className="item-titles">{` ${index + 1}.  ${items}`}</div>
+													)}
 													<div className="buttons">
-														<button onClick={changeValue('edit', index)}>Edit</button>
-														<button onClick={changeValue('move', index)}>Move</button>
+														<button onClick={changeValue('edit', index, items)}>
+															Edit
+														</button>
+														{/* <button onClick={changeValue('move', index, items)}> */}
+														<button onClick={showDropdownMenu(index)}>Move</button>
 														<button onClick={changeValue('delete', index)}>Delete</button>
 														<button
 															onClick={doChange}
@@ -135,6 +172,18 @@ function App() {
 														>
 															Conform
 														</button>
+														{/* {displayMenu === index ? (
+															<div>
+																<ul>
+																	<li>
+																		<a href="#Manage Pages">Manage Pages</a>
+																	</li>
+																	<li>
+																		<a href="#Create Ads">Create Ads</a>
+																	</li>
+																</ul>
+															</div>
+														) : null} */}
 													</div>
 												</td>
 											</tr>
