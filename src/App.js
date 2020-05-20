@@ -8,17 +8,17 @@ function App() {
 		Industries: {
 			name: 'Industries',
 			index: 0,
-			items: ['Pets & Animals', 'Professional & Commercial Services', 'Textiles & Apparel'],
+			items: [],
 		},
 		Sectors: {
 			name: 'Sectors',
 			index: 1,
-			items: ['Agriculture', 'Chemical', 'Education'],
+			items: [],
 		},
 		Categories: {
 			name: 'Categories',
 			index: 2,
-			items: ['Rural', 'Urban', 'Sub-urban'],
+			items: [],
 		},
 	});
 	const [selectedCategory, setSelectedCategory] = useState('Industries');
@@ -29,6 +29,35 @@ function App() {
 		searchKeyword: '',
 		addItem: '',
 	});
+
+	useEffect(() => {
+		fetch('https://api.hackstrap.com/beta/api/database/autocomplete?type=industries')
+			.then((res) => res.json())
+			.then((response) => {
+				response.map((element) => {
+					data.Industries.items.push(element.name);
+				});
+				setData({ ...data });
+			});
+
+		fetch('https://api.hackstrap.com/beta/api/database/autocomplete?type=sectors')
+			.then((res) => res.json())
+			.then((response) => {
+				response.map((element) => {
+					data.Sectors.items.push(element.name);
+				});
+				setData({ ...data });
+			});
+
+		fetch('https://api.hackstrap.com/beta/api/database/autocomplete?type=categories')
+			.then((res) => res.json())
+			.then((response) => {
+				response.map((element) => {
+					data.Categories.items.push(element.name);
+				});
+				setData({ ...data });
+			});
+	}, []);
 
 	const { addItem, searchKeyword } = state;
 
