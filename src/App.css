@@ -2,7 +2,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
 }
 
 .bg-card {
@@ -231,6 +230,14 @@
 		align-items: center;
 	}
 	.add-item-div * {
+		margin-top: 10px;
+	}
+
+	.categories-table td {
+		flex-direction: column;
+	}
+
+	.categories-table td * {
 		margin-top: 10px;
 	}
 }
