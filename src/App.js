@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchIcon from './searchIcon';
+import CheckIcon from './checkBox';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [conformState, setConformState] = useState({ action: '', editVal: '', index: -1 });
 	const [displayMenu, setDisplayMenu] = useState(-1);
+	const [moveMenu, setMoveMenu] = useState({ value: '', to: '' });
 
 	const changeCategory = (item) => (event) => {
 		setSelectedCategory(item);
@@ -57,11 +59,14 @@ function App() {
 
 	const changeValue = (item, index, editVal) => (event) => {
 		event.preventDefault();
-		console.log(item, index);
 		if (item === 'edit') {
 			setConformState({ action: item, index: index, editVal: editVal });
-		} else {
+		} else if (item === 'delete') {
 			setConformState({ action: item, index: index });
+		} else if (item === 'move') {
+			setConformState({ action: item, index: index });
+			showDropdownMenu(index);
+			setMoveMenu({ ...setMoveMenu, value: editVal });
 		}
 	};
 
@@ -80,11 +85,27 @@ function App() {
 			setData({ ...data });
 			setConformState({ action: '', index: -1, editVal: '' });
 		}
+
+		if (action === 'move') {
+			var i = data[selectedCategory].items.indexOf(moveMenu.value);
+			if (i !== -1) data[selectedCategory].items.splice(i, 1);
+
+			data[moveMenu.to].items.push(moveMenu.value);
+			setData({ ...data });
+			setConformState({ action: '', index: -1, editVal: '' });
+			showDropdownMenu(-1);
+		}
 	};
 
-	const showDropdownMenu = (index) => (event) => {
-		event.preventDefault();
-		setDisplayMenu(index);
+	const showDropdownMenu = (index) => {
+		if (displayMenu === index) {
+			setDisplayMenu(-1);
+		} else {
+			setDisplayMenu(index);
+		}
+	};
+	const handleCheckBoxChange = (item, items) => (event) => {
+		setMoveMenu({ ...moveMenu, to: item });
 	};
 
 	return (
@@ -157,33 +178,67 @@ function App() {
 														<div className="item-titles">{` ${index + 1}.  ${items}`}</div>
 													)}
 													<div className="buttons">
-														<button onClick={changeValue('edit', index, items)}>
+														<button
+															className="edit"
+															onClick={changeValue('edit', index, items)}
+														>
 															Edit
 														</button>
-														{/* <button onClick={changeValue('move', index, items)}> */}
-														<button onClick={showDropdownMenu(index)}>Move</button>
-														<button onClick={changeValue('delete', index)}>Delete</button>
 														<button
+															className="move"
+															onClick={changeValue('move', index, items)}
+														>
+															Move
+														</button>
+														<button
+															className="delete"
+															onClick={changeValue('delete', index)}
+														>
+															Delete
+														</button>
+														<button
+															className="conform"
 															onClick={doChange}
 															style={{
 																visibility:
 																	index === conformState.index ? 'visible' : 'hidden',
 															}}
 														>
-															Conform
+															{conformState.action === 'edit' ? 'Save' : 'Conform'}
 														</button>
-														{/* {displayMenu === index ? (
-															<div>
-																<ul>
-																	<li>
-																		<a href="#Manage Pages">Manage Pages</a>
-																	</li>
-																	<li>
-																		<a href="#Create Ads">Create Ads</a>
-																	</li>
-																</ul>
+														{displayMenu === index ? (
+															<div className="menu">
+																<span>Move To</span>
+																{Object.keys(data).map((item, index) => {
+																	if (item !== selectedCategory) {
+																		return (
+																			<>
+																				<input
+																					type="checkbox"
+																					id={index}
+																					onChange={handleCheckBoxChange(
+																						item,
+																						index,
+																						items
+																					)}
+																				/>
+																				<label htmlFor={index}>
+																					{item}
+																					<CheckIcon
+																						className="check-box-label"
+																						color={
+																							item === moveMenu.to
+																								? '#E8B103'
+																								: '#81869F'
+																						}
+																					/>
+																				</label>
+																			</>
+																		);
+																	}
+																})}
 															</div>
-														) : null} */}
+														) : null}
 													</div>
 												</td>
 											</tr>
