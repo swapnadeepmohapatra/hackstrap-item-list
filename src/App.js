@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import SearchIcon from './searchIcon';
 import './App.css';
 
@@ -24,6 +23,7 @@ function App() {
 	const [selectedCategory, setSelectedCategory] = useState('Industries');
 	const [addItem, setAddItem] = useState('');
 	const [searchKeyword, setSearchKeyword] = useState('');
+	const [conformState, setConformState] = useState({ action: '', index: -1 });
 
 	const changeCategory = (item) => (event) => {
 		setSelectedCategory(item);
@@ -51,6 +51,21 @@ function App() {
 		setAddItem('');
 	};
 
+	const changeValue = (item, index) => (event) => {
+		console.log(item, index);
+		setConformState({ action: item, index: index });
+	};
+
+	const doChange = (event) => {
+		const { action, index } = conformState;
+
+		if (action === 'delete') {
+			data[selectedCategory].items.splice(index, 1);
+			setData({ ...data });
+			setConformState({ action: '', index: -1 });
+		}
+	};
+
 	return (
 		<div className="App">
 			<div className="bg-card">
@@ -58,9 +73,9 @@ function App() {
 				<div className="">
 					<div className="line"></div>
 					<ul className="manage-items-list">
-						{Object.keys(data).map((item) => {
+						{Object.keys(data).map((item, index) => {
 							return (
-								<li>
+								<li key={index}>
 									<button onClick={changeCategory(item)} disabled={item === selectedCategory}>
 										{item}
 									</button>
@@ -104,15 +119,19 @@ function App() {
 									.filter((item) => item.toLowerCase().includes(searchKeyword))
 									.map((items, index) => {
 										return (
-											<tr>
+											<tr key={index}>
 												<td>
 													<div className="item-titles">{` ${index + 1}.  ${items}`}</div>
 													<div className="buttons">
-														<button>Edit</button>
-														<button>Move</button>
-														<button>Delete</button>
+														<button onClick={changeValue('edit', index)}>Edit</button>
+														<button onClick={changeValue('move', index)}>Move</button>
+														<button onClick={changeValue('delete', index)}>Delete</button>
 														<button
-															style={{ visibility: index === 1 ? 'visible' : 'hidden' }}
+															onClick={doChange}
+															style={{
+																visibility:
+																	index === conformState.index ? 'visible' : 'hidden',
+															}}
 														>
 															Conform
 														</button>
