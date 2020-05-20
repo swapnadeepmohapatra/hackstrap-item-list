@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SearchIcon from './searchIcon';
-import CheckIcon from './checkBox';
+import SearchIcon from './assets/SearchIcon';
+import CheckIcon from './assets/CheckBoxIcon';
 import './App.css';
 
 function App() {
@@ -22,11 +22,15 @@ function App() {
 		},
 	});
 	const [selectedCategory, setSelectedCategory] = useState('Industries');
-	const [addItem, setAddItem] = useState('');
-	const [searchKeyword, setSearchKeyword] = useState('');
 	const [conformState, setConformState] = useState({ action: '', editVal: '', index: -1 });
 	const [displayMenu, setDisplayMenu] = useState(-1);
 	const [moveMenu, setMoveMenu] = useState({ value: '', to: '' });
+	const [state, setState] = useState({
+		searchKeyword: '',
+		addItem: '',
+	});
+
+	const { addItem, searchKeyword } = state;
 
 	const changeCategory = (item) => (event) => {
 		setSelectedCategory(item);
@@ -34,10 +38,10 @@ function App() {
 
 	const handleOnChange = (item) => (event) => {
 		if (item === 'newItem') {
-			setAddItem(event.target.value);
+			setState({ ...state, addItem: event.target.value });
 		}
 		if (item === 'searchItem') {
-			setSearchKeyword(event.target.value);
+			setState({ ...state, searchKeyword: event.target.value });
 		}
 		if (item === 'editItem') {
 			setConformState({ ...conformState, editVal: event.target.value });
@@ -54,15 +58,23 @@ function App() {
 		let itemArray = data[selectedCategory].items;
 		itemArray.push(addItem);
 		setData({ ...data });
-		setAddItem('');
+		setState({ ...state, addItem: '' });
 	};
 
 	const changeValue = (item, index, editVal) => (event) => {
 		event.preventDefault();
 		if (item === 'edit') {
-			setConformState({ action: item, index: index, editVal: editVal });
+			if (conformState.action === 'edit') {
+				setConformState({ action: '', index: -1 });
+			} else {
+				setConformState({ action: item, index: index, editVal: editVal });
+			}
 		} else if (item === 'delete') {
-			setConformState({ action: item, index: index });
+			if (conformState.action === 'delete') {
+				setConformState({ action: '', index: -1 });
+			} else {
+				setConformState({ action: item, index: index });
+			}
 		} else if (item === 'move') {
 			setConformState({ action: item, index: index });
 			showDropdownMenu(index);
@@ -70,7 +82,7 @@ function App() {
 		}
 	};
 
-	const doChange = (event) => {
+	const conformChange = (event) => {
 		event.preventDefault();
 		const { action, editVal, index } = conformState;
 
@@ -87,8 +99,8 @@ function App() {
 		}
 
 		if (action === 'move') {
-			var i = data[selectedCategory].items.indexOf(moveMenu.value);
-			if (i !== -1) data[selectedCategory].items.splice(i, 1);
+			var indexOfDataToBeRemoved = data[selectedCategory].items.indexOf(moveMenu.value);
+			if (indexOfDataToBeRemoved !== -1) data[selectedCategory].items.splice(indexOfDataToBeRemoved, 1);
 
 			data[moveMenu.to].items.push(moveMenu.value);
 			setData({ ...data });
@@ -100,10 +112,12 @@ function App() {
 	const showDropdownMenu = (index) => {
 		if (displayMenu === index) {
 			setDisplayMenu(-1);
+			setConformState({ ...conformState, action: '', index: -1 });
 		} else {
 			setDisplayMenu(index);
 		}
 	};
+
 	const handleCheckBoxChange = (item, items) => (event) => {
 		setMoveMenu({ ...moveMenu, to: item });
 	};
@@ -164,7 +178,7 @@ function App() {
 											<tr key={index}>
 												<td>
 													{conformState.action === 'edit' && conformState.index === index ? (
-														<form onSubmit={doChange} className="item-titles">
+														<form onSubmit={conformChange} className="item-titles">
 															{` ${index + 1}. `}
 															<input
 																onChange={handleOnChange('editItem')}
@@ -198,7 +212,7 @@ function App() {
 														</button>
 														<button
 															className="conform"
-															onClick={doChange}
+															onClick={conformChange}
 															style={{
 																visibility:
 																	index === conformState.index ? 'visible' : 'hidden',
@@ -212,7 +226,7 @@ function App() {
 																{Object.keys(data).map((item, index) => {
 																	if (item !== selectedCategory) {
 																		return (
-																			<>
+																			<div key={index}>
 																				<input
 																					type="checkbox"
 																					id={index}
@@ -233,7 +247,7 @@ function App() {
 																						}
 																					/>
 																				</label>
-																			</>
+																			</div>
 																		);
 																	}
 																})}

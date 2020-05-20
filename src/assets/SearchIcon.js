@@ -1,6 +1,6 @@
 import React from 'react';
 
-function searchIcon() {
+function SearchIcon() {
 	return (
 		<svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -11,4 +11,4 @@ function searchIcon() {
 	);
 }
 
-export default searchIcon;
+export default SearchIcon;

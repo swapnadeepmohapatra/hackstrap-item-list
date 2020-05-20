@@ -1,6 +1,6 @@
 import React from 'react';
 
-function checkBox({ color }) {
+function CheckBoxIcon({ color }) {
 	return (
 		<div>
 			<svg width="24" height="24" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,4 +13,4 @@ function checkBox({ color }) {
 	);
 }
 
-export default checkBox;
+export default CheckBoxIcon;
