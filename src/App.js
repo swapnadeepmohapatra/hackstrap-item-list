@@ -211,7 +211,7 @@ function App() {
 															Delete
 														</button>
 														<button
-															className="conform"
+															className={conformState.action}
 															onClick={conformChange}
 															style={{
 																visibility:
