@@ -166,6 +166,10 @@
 	background-color: #e90822;
 }
 
+.buttons :disabled {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
 .add-item-div {
 	background-color: #edf1f2;
 	padding: 10px 20px;
