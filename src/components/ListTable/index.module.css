@@ -1,0 +1,161 @@
+.mainCard {
+	background-color: #fff;
+	border-radius: 20px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	padding: 20px;
+	margin: 50px 25px;
+	width: 70%;
+}
+
+.mainCard ul {
+	margin: 0;
+}
+
+.mainCardHead {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.mainCardHead input {
+	border-radius: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 0;
+	background: #f4f5f9;
+	font-style: italic;
+}
+
+.mainCardHead input:focus {
+	outline: 0;
+}
+
+.mainCardHeading {
+	margin: 0;
+	padding: 0 0 10px 5px;
+}
+
+.inputDiv {
+	display: flex;
+	background: #f4f5f9;
+	border-radius: 70px;
+	align-items: center;
+	padding-right: 10px;
+	margin-bottom: 10px;
+	font-style: italic;
+}
+
+.searchButton {
+	background: 0 0;
+	border: 0;
+	cursor: pointer;
+}
+
+.line {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.categoriesTableDiv {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.addItemDiv {
+	background-color: #edf1f2;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.addItemDiv span {
+	text-align: center;
+	flex: 1;
+	color: #348105;
+	font-weight: 500;
+}
+
+.addItemDiv ::placeholder {
+	color: #000;
+}
+
+.addItemDiv input {
+	flex: 2;
+}
+.addItemDiv button,
+label {
+	cursor: pointer;
+	padding: 5px 10px;
+}
+
+.addItemDiv button {
+	background-color: #edf1f2;
+	background: #10389b;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 8.36362px;
+	color: #fff;
+	font-weight: 500;
+	line-height: 14px;
+	border: 0;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.addItemDiv input {
+	background: #fff;
+	border: 0.809382px solid #10389b;
+	box-sizing: border-box;
+	border-radius: 2px;
+	padding: 2px 10px;
+	color: #000;
+}
+
+.categoriesTable {
+	border-collapse: separate;
+	border-spacing: 0 15px;
+	width: 100%;
+}
+
+.categoriesTable tr {
+	font-weight: 500;
+}
+
+.categoriesTable td {
+	display: flex;
+	justify-content: space-between;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.categoriesTable tr:nth-child(even) {
+	background: #edf1f2;
+}
+
+.categoriesTable tr:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+.categoriesTable-div {
+	margin-top: 10px;
+	width: 100%;
+}
+
+@media all and (max-width: 480px) {
+	.mainCardHead {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.addItemDiv {
+		flex-direction: column;
+		align-items: center;
+	}
+	.addItemDiv *,
+	.categoriesTable td * {
+		margin-top: 10px;
+	}
+	.categoriesTable td {
+		flex-direction: column;
+	}
+}

@@ -1,0 +1,59 @@
+.App {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bgCard {
+	background-color: #f2f4f5;
+	border-radius: 20px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	padding: 20px;
+	margin: 50px 25px;
+	width: 100%;
+}
+
+.bgCardHeading {
+	margin: 0;
+	padding: 0 10px 10px;
+}
+
+.line {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.manageItemsList {
+	display: flex;
+	list-style-type: none;
+	padding: 0;
+	margin: 20px 0 0;
+	justify-content: center;
+}
+
+.manageItemsList li {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.manageItemsList li button:enabled {
+	font-size: 15.4px;
+	line-height: 18px;
+	background: #fafafa;
+	box-shadow: 0 4.4px 4.4px rgba(0, 0, 0, 0.25);
+	border-radius: 11px;
+	border: 0;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.manageItemsList li button:disabled {
+	font-size: 15.4px;
+	line-height: 18px;
+	background: #00bcd4;
+	box-shadow: 0 4.4px 4.4px rgba(0, 0, 0, 0.25);
+	border-radius: 11px;
+	border: 0;
+	padding: 5px 10px;
+	color: #000;
+}

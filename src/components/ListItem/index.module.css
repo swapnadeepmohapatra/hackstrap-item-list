@@ -1,0 +1,101 @@
+.categories-table tr {
+	font-weight: 500;
+}
+
+.categories-table td {
+	display: flex;
+	justify-content: space-between;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.categories-table tr:nth-child(even) {
+	background: #edf1f2;
+}
+
+.categories-table tr:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+.categories-table-div {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.buttons button {
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 6.57353px;
+	border: 0;
+	color: #fff;
+	font-weight: 500;
+	padding: 3px 10px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.buttons .edit {
+	background-color: #3f9d05;
+}
+
+.buttons .move {
+	background-color: #e8b103;
+}
+
+.buttons .conform,
+.buttons .delete {
+	background-color: #e90822;
+}
+
+.buttons :disabled {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.itemTitles input {
+	background: #fff;
+	border: 0.809382px solid #10389b;
+	box-sizing: border-box;
+	border-radius: 2px;
+	padding: 2px 10px;
+	color: #000;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 8px;
+	max-width: fit-content;
+	position: absolute;
+}
+
+.menu button,
+.menu span {
+	background-color: #fff !important;
+}
+
+.menu span {
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.menu button {
+	max-width: fit-content;
+	margin: 5px;
+}
+
+input[type='checkbox'] {
+	display: none;
+}
+
+label svg {
+	margin-left: 15px;
+}
+
+label {
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+	color: #81869f;
+}

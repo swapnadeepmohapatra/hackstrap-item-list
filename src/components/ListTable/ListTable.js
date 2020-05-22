@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SearchIcon from '../assets/SearchIcon';
-import ListItem from './ListItem';
+import SearchIcon from '../../assets/SearchIcon';
+import ListItem from '../ListItem/ListItem';
+import Styles from './index.module.css';
 import Axios from 'axios';
 
 function ListTable({ selectedCategory }) {
@@ -82,10 +83,10 @@ function ListTable({ selectedCategory }) {
 	};
 
 	return (
-		<div className="main-card">
-			<div className="main-card-head">
-				<h4 className="main-card-heading">{selectedCategory}</h4>
-				<div className="input-div">
+		<div className={Styles.mainCard}>
+			<div className={Styles.mainCardHead}>
+				<h4 className={Styles.mainCardHeading}>{selectedCategory}</h4>
+				<div className={Styles.inputDiv}>
 					<input
 						type="text"
 						placeholder={`Search in ${selectedCategory}`}
@@ -93,15 +94,15 @@ function ListTable({ selectedCategory }) {
 						onChange={handleOnChange('searchItem')}
 					/>
 					<span>
-						<button className="search-button">
+						<button className={Styles.searchButton}>
 							<SearchIcon />
 						</button>
 					</span>
 				</div>
 			</div>
-			<div className="line"></div>
-			<div className="categories-table-div">
-				<form className="add-item-div" onSubmit={addNewItem}>
+			<div className={Styles.line}></div>
+			<div className={Styles.categoriesTableDiv}>
+				<form className={Styles.addItemDiv} onSubmit={addNewItem}>
 					<span>Add new item </span>
 					<input
 						type="text"
@@ -111,7 +112,7 @@ function ListTable({ selectedCategory }) {
 					/>
 					<button>Save</button>
 				</form>
-				<table className="categories-table">
+				<table className={Styles.categoriesTable}>
 					<tbody>
 						{data[selectedCategory].items
 							.filter((item) => item.toLowerCase().includes(searchKeyword))

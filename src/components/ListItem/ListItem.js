@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CheckIcon from '../assets/CheckBoxIcon';
+import CheckIcon from '../../assets/CheckBoxIcon';
 import Axios from 'axios';
+import Styles from './index.module.css';
 
 function ListItem({ index, selectedCategory, items }) {
 	const data = ['Industries', 'Sectors', 'Categories'];
@@ -108,7 +109,7 @@ function ListItem({ index, selectedCategory, items }) {
 		<tr>
 			<td>
 				{conformState.action === 'edit' && conformState.show ? (
-					<form onSubmit={conformChange} className="item-titles">
+					<form onSubmit={conformChange} className={Styles.itemTitles}>
 						{` ${index + 1}. `}
 						<input
 							onChange={handleOnChange('editItem')}
@@ -119,22 +120,22 @@ function ListItem({ index, selectedCategory, items }) {
 						/>
 					</form>
 				) : (
-					<div className="item-titles">{` ${index + 1}.  ${items}`}</div>
+					<div className={Styles.itemTitles}>{` ${index + 1}.  ${items}`}</div>
 				)}
-				<div className="buttons">
-					<button className="edit" onClick={changeValue('edit', index, items)}>
+				<div className={Styles.buttons}>
+					<button className={Styles.edit} onClick={changeValue('edit', index, items)}>
 						Edit
 					</button>
-					<button className="move" onClick={changeValue('move', index, items)}>
+					<button className={Styles.move} onClick={changeValue('move', index, items)}>
 						Move
 					</button>
-					<button className="delete" onClick={changeValue('delete', index, items)}>
+					<button className={Styles.delete} onClick={changeValue('delete', index, items)}>
 						Delete
 					</button>
 					<button
 						disabled={conformState.action === 'move' && !moveMenu.to}
-						className={conformState.action}
 						onClick={conformChange}
+						className={Styles[conformState.action]}
 						style={{
 							visibility: conformState.show ? 'visible' : 'hidden',
 						}}
@@ -142,7 +143,7 @@ function ListItem({ index, selectedCategory, items }) {
 						{conformState.action === 'edit' ? 'Save' : 'Conform'}
 					</button>
 					{displayMenu && conformState.action === 'move' ? (
-						<div className="menu">
+						<div className={Styles.menu}>
 							<span>Move To</span>
 							{data.map((item, index) => {
 								if (item !== selectedCategory) {
@@ -155,10 +156,7 @@ function ListItem({ index, selectedCategory, items }) {
 											/>
 											<label htmlFor={index}>
 												{item}
-												<CheckIcon
-													className="check-box-label"
-													color={item === moveMenu.to ? '#E8B103' : '#81869F'}
-												/>
+												<CheckIcon color={item === moveMenu.to ? '#E8B103' : '#81869F'} />
 											</label>
 										</div>
 									);

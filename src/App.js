@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import ListTable from './components/ListTable';
+import Styles from './App.module.css';
+import ListTable from './components/ListTable/ListTable';
 
 function App() {
 	const data = ['Industries', 'Sectors', 'Categories'];
@@ -11,12 +11,12 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<div className="bg-card">
-				<h4 className="bg-card-heading">Manage items in Industry, Sectors, Categories</h4>
+		<div className={Styles.App}>
+			<div className={Styles.bgCard}>
+				<h4 className={Styles.bgCardHeading}>Manage items in Industry, Sectors, Categories</h4>
 				<div className="">
-					<div className="line"></div>
-					<ul className="manage-items-list">
+					<div className={Styles.line}></div>
+					<ul className={Styles.manageItemsList}>
 						{data.map((item, index) => {
 							return (
 								<li key={index}>
