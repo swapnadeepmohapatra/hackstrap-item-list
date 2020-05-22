@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import CheckIcon from '../../assets/CheckBoxIcon';
 import Axios from 'axios';
 import Styles from './index.module.css';
@@ -8,22 +8,6 @@ function ListItem({ index, selectedCategory, items }) {
 	const [conformState, setConformState] = useState({ action: '', editVal: '', show: false });
 	const [displayMenu, setDisplayMenu] = useState(false);
 	const [moveMenu, setMoveMenu] = useState({ value: '', to: '' });
-	const [state, setState] = useState({
-		searchKeyword: '',
-		addItem: '',
-	});
-
-	const handleOnChange = (item) => (event) => {
-		if (item === 'newItem') {
-			setState({ ...state, addItem: event.target.value });
-		}
-		if (item === 'searchItem') {
-			setState({ ...state, searchKeyword: event.target.value });
-		}
-		if (item === 'editItem') {
-			setConformState({ ...conformState, editVal: event.target.value });
-		}
-	};
 
 	const changeValue = (item, index, editVal) => (event) => {
 		event.preventDefault();
@@ -101,10 +85,6 @@ function ListItem({ index, selectedCategory, items }) {
 		}
 	};
 
-	const handleCheckBoxChange = (item, items) => (event) => {
-		setMoveMenu({ ...moveMenu, to: item });
-	};
-
 	return (
 		<tr>
 			<td>
@@ -112,7 +92,9 @@ function ListItem({ index, selectedCategory, items }) {
 					<form onSubmit={conformChange} className={Styles.itemTitles}>
 						{` ${index + 1}. `}
 						<input
-							onChange={handleOnChange('editItem')}
+							onChange={(event) => {
+								setConformState({ ...conformState, editVal: event.target.value });
+							}}
 							type="text"
 							name=""
 							id=""
@@ -152,7 +134,9 @@ function ListItem({ index, selectedCategory, items }) {
 											<input
 												type="checkbox"
 												id={index}
-												onChange={handleCheckBoxChange(item, index, items)}
+												onChange={(event) => {
+													setMoveMenu({ ...moveMenu, to: item });
+												}}
 											/>
 											<label htmlFor={index}>
 												{item}

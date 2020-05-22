@@ -59,15 +59,6 @@ function ListTable({ selectedCategory }) {
 
 	const { addItem, searchKeyword } = state;
 
-	const handleOnChange = (item) => (event) => {
-		if (item === 'newItem') {
-			setState({ ...state, addItem: event.target.value });
-		}
-		if (item === 'searchItem') {
-			setState({ ...state, searchKeyword: event.target.value });
-		}
-	};
-
 	const addNewItem = (event) => {
 		event.preventDefault();
 
@@ -91,7 +82,9 @@ function ListTable({ selectedCategory }) {
 						type="text"
 						placeholder={`Search in ${selectedCategory}`}
 						value={searchKeyword}
-						onChange={handleOnChange('searchItem')}
+						onChange={(event) => {
+							setState({ ...state, searchKeyword: event.target.value });
+						}}
 					/>
 					<span>
 						<button className={Styles.searchButton}>
@@ -108,7 +101,9 @@ function ListTable({ selectedCategory }) {
 						type="text"
 						value={addItem}
 						placeholder="Enter the name"
-						onChange={handleOnChange('newItem')}
+						onChange={(event) => {
+							setState({ ...state, addItem: event.target.value });
+						}}
 					/>
 					<button>Save</button>
 				</form>
